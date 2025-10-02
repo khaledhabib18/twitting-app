@@ -6,15 +6,53 @@ import bcrypt from "bcrypt";
 const saltRounds = 10;
 import User from "./DB/users.js";
 import sequelize from "./DB/config.js";
+import jwt from "jsonwebtoken";
+
 app.use(express.json());
 
-const SignUpRequestSchema = z.object({
+const SignRequestSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
+app.post("/sign-in-request", async (req, res) => {
+  const result = SignRequestSchema.safeParse(req.body);
+  if (!result.success) {
+    return res.status(400).json({
+      error: "Schema error",
+    });
+  }
+  const ValidUser = await User.findOne({ where: { email: req.body.email } });
+  if (ValidUser) {
+    const PasswordCorrect = await bcrypt.compare(
+      req.body.password,
+      ValidUser.password
+    );
+    if (PasswordCorrect) {
+      const token = jwt.sign(
+        {
+          id: ValidUser.id,
+          email: ValidUser.email,
+          password: ValidUser.password,
+        },
+        "Khaled"
+      );
+      res.send(token);
+    } else {
+      res.status(400).json({
+        err: "Password or Username is incorrect",
+      });
+    }
+  } else {
+    res.status(400).json({
+      err: "Password or Username is incorrect",
+    });
+  }
+
+  //   res.send(req.body);
+});
 app.post("/sign-up-request", async (req, res) => {
-  const result = SignUpRequestSchema.safeParse(req.body);
+  const result = SignRequestSchema.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({
       error: "Schema error",
