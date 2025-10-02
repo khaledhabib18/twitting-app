@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(async (res) => {
         const data = await res.json();
         if (res.ok && data.token) {
+          // Store token in localStorage
+          localStorage.setItem("authToken", data.token);
           window.location.href = "index.html";
         } else {
           showPopup(data.err || "Login failed.");
