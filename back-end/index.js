@@ -7,6 +7,9 @@ const saltRounds = 10;
 import User from "./DB/users.js";
 import sequelize from "./DB/config.js";
 import jwt from "jsonwebtoken";
+import cors from "cors";
+
+app.use(cors()); // Allow all origins by default
 
 app.use(express.json());
 
@@ -37,7 +40,7 @@ app.post("/sign-in-request", async (req, res) => {
         },
         "Khaled"
       );
-      res.send(token);
+      res.status(200).json({ token });
     } else {
       res.status(400).json({
         err: "Password or Username is incorrect",
@@ -60,17 +63,20 @@ app.post("/sign-up-request", async (req, res) => {
   }
   const unique_email = await User.findOne({ where: { email: req.body.email } });
   if (unique_email) {
-    return res.send("Email is used by another user");
+    return res.status(400).json({ err: "Email is used by another user" });
   } else {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
       if (err) {
-        res.send("Error hashing the password");
+        res.status(500).json({ err: "Error hashing the password" });
       } else {
         const newUser = User.create({
+          name: req.body.name,
           email: req.body.email,
           password: hash,
         });
-        res.send(hash);
+        res.status(200).json({
+          token: hash,
+        });
       }
     });
   }
