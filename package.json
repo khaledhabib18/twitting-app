@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "zod": "^4.1.11"
+  },
+  "name": "twitting-app",
+  "version": "1.0.0",
+  "description": "back-end training",
+  "main": "back-end/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon back-end/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaledhabib18/twitting-app.git"
+  },
+  "author": "Khaled Habib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khaledhabib18/twitting-app/issues"
+  },
+  "homepage": "https://github.com/khaledhabib18/twitting-app#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
