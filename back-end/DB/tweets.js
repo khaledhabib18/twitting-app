@@ -4,7 +4,16 @@ const sequelize = require("./config");
 const Tweet = sequelize.define(
   "Tweet",
   {
+    uid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     userid: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    author: {
       type: DataTypes.STRING,
       allowNull: false,
     },

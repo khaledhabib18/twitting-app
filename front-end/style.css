@@ -1,12 +1,11 @@
 body {
-    flex-direction: column;
     background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
     font-family: 'Segoe UI', Arial, sans-serif;
     height: 100vh;
     margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    /* Only show vertical scroll if needed */
+    overflow-y: auto;
 }
 
 .container {
@@ -16,11 +15,22 @@ body {
     padding: 40px 32px;
     width: 350px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* add this for vertical centering */
+    min-height: 420px;
+    /* ensure enough height for both forms */
 }
 
 .form-wrapper {
     position: relative;
+    width: 100%;
     height: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .auth-form {
@@ -33,6 +43,9 @@ body {
     transition: opacity 0.4s cubic-bezier(.77, 0, .18, 1), transform 0.4s cubic-bezier(.77, 0, .18, 1);
     pointer-events: none;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .auth-form.active {
@@ -147,9 +160,15 @@ body {
 }
 
 .feed-container {
-    margin: 90px auto 0 auto;
+    margin: 0 auto;
+    padding-top: 100px;
+    /* or 120px, matching header height */
     max-width: 480px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100vh;
 }
 
 .tweet-box {
