@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (res.ok && data.token) {
           // Store token in localStorage
           localStorage.setItem("authToken", data.token);
+          console.log("Signed in");
           window.location.href = "index.html";
         } else {
           showPopup(data.err || "Login failed.");

@@ -1,9 +1,14 @@
 const express = require("express");
 const userController = require("../controllers/userController");
 const userRoute = express.Router();
-const SignUpRequestSchema = require("../schemas/userSchemas");
 const validate = require("../middlewares/validate");
-const SignInRequestSchema = require("../schemas/userSchemas");
+const check = require("../middlewares/check");
+require("dotenv").config();
+
+const {
+  SignUpRequestSchema,
+  SignInRequestSchema,
+} = require("../schemas/userSchemas");
 
 userRoute.post(
   "/sign-up-request",
@@ -14,7 +19,13 @@ userRoute.post(
 userRoute.post(
   "/sign-in-request",
   validate(SignInRequestSchema),
-  userController.signUp
+  userController.signIn
+);
+
+userRoute.get(
+  "/get-user-data",
+  check(process.env.JWT_SECRET),
+  userController.getUserData
 );
 
 module.exports = userRoute;

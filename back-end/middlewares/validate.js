@@ -1,5 +1,4 @@
-// middlewares/validate.js
-module.exports = (schema) => {
+const validate = (schema) => {
   return (req, res, next) => {
     try {
       schema.parse(req.body);
@@ -9,3 +8,5 @@ module.exports = (schema) => {
     }
   };
 };
+
+module.exports = validate;

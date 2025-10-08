@@ -4,11 +4,15 @@ const createUser = async (userData) => {
   return await userModel.create(userData);
 };
 
-const getUserByUID = async (uid) => {
+const getUserByEmail = async (email) => {
+  return await userModel.findOne({ where: { email } });
+};
+const getUserByUid = async (uid) => {
   return await userModel.findOne({ where: { uid } });
 };
 
 module.exports = {
   createUser,
-  getUserByUID,
+  getUserByEmail,
+  getUserByUid,
 };
